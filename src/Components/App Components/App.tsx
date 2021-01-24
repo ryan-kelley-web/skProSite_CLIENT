@@ -1,34 +1,51 @@
 import React, { Component } from "react";
 //COMPONS
 import SKAuth from "../Auth Components/SKAuth";
+import SKProfiles from "../SKProfiles";
 import SKPublicSite from "../SKPublicSite";
+import SKAbout from "../SKAbout";
+import SKBlog from "../SKBlog";
+import SKContact from "../SKContact";
 import SKPrivateSite from "../SKPrivateSite";
-import SKRegistration from "../Auth Components/SKRegistration";
-import SKLogin from "../Auth Components/SKLogin";
-//BROWSER ROUTER
-import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom";
+// import { Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
-// const PrivateRoute = ({ component: Component, ...rest }) => {
-//     <Route {...rest} render={(props) => (
-//         Auth.isAuthenticated === true?
-//         <Component {...props} /> : <Redirect to="/login"/>
-//     )} />
+//BROWSER ROUTER
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
+
+// interface App_tsProps {
+//   updateToken: (token: string) => void;
 // }
 
+interface App_tsState {
+  name: string; email: string; password: string; isAdmin: boolean; token: string | null; showSKPriv: boolean;
+}
+
+
 //TS: < {_props_}, {_state_} >
-class App extends React.Component<{}, { token: string | null }> {
+class App extends React.Component<{}, App_tsState> {
   constructor(props: any) {
     super(props);
 
-    //BOUND FUNCTIONS
+    //MUST BIND FUNCTIONS INSIDE CONSTRUCTOR... all functions???
     this.updateToken = this.updateToken.bind(this);
     this.deleteToken = this.deleteToken.bind(this);
     this.getToken = this.getToken.bind(this);
+    this.showSKPriv = this.showSKPriv.bind(this);
 
     this.state = {
-      //  loggedInStatus: 'NOT_LOGGED_IN',
-      //  user: {},
+      name: '',
+      email: '',
+      password: '',
+      isAdmin: false,
       token: null,
+      showSKPriv: false
     };
   }
 
@@ -45,14 +62,85 @@ class App extends React.Component<{}, { token: string | null }> {
     return this.state.token;
   }
 
+  showSKPriv() {
+    this.setState({ showSKPriv: true });
+  }
+
+
   render() {
     return (
+
       <div>
+        <Router>
+          <div>
+            <nav>
+              <ul>
 
-      <SKAuth updateToken={ this.updateToken } />
+                <li>
+                  <Link to="/">fSwS LOGO</Link>
+                </li>
 
-   
-    </div>
+                <li>
+                  <Link to="/about">About</Link>
+                </li>
+
+                <li>
+                  <Link to="/contact">Contact</Link>
+                </li>
+
+                <li>
+                  <Link to="/LTTSblog">Letters to the Strong: the official fSwS Blog</Link>
+                </li>
+
+                <li>
+                  <Link to="/login">fSwS Community Portal</Link>
+                </li>
+
+              </ul>
+            </nav>
+          </div>
+
+          <Switch>
+
+            <Route exact path="/">
+              <SKPublicSite
+                updateToken={this.updateToken}
+              />
+            </Route>
+
+            <Route exact path="/about">
+              <SKAbout updateToken={this.updateToken} />
+            </Route>
+
+            <Route exact path="/LTTSblog">
+              <SKBlog updateToken={this.updateToken} />
+            </Route>
+
+            <Route exact path="/contact">
+              <SKContact updateToken={this.updateToken} />
+            </Route>
+
+            <Route exact path="/login">
+              {this.state.token && !this.state.showSKPriv ?
+                <SKProfiles
+                  token={this.state.token}
+                  showSKPriv={this.showSKPriv} />
+                :
+                this.state.token && this.showSKPriv ?
+                  <SKPrivateSite
+                    updateToken={this.updateToken} />
+                  :
+                  <SKAuth updateToken={this.updateToken} />}
+
+
+            </Route>
+
+          </Switch>
+
+        </Router>
+      </div>
+
+
     );
   }
 }
@@ -113,3 +201,8 @@ export default App;
                     <SetStateTut/>
                     </div>
             */
+
+            //WAS IN SWITCH BEFORE TRIPLE TERNARY
+/* {this.state.showSKPriv ?
+  <SKPrivateSite
+    updateToken={this.updateToken}/> : null} */

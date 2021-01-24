@@ -1,43 +1,42 @@
 import React, { Component } from 'react'
-import SKRegistration from './SKRegistration'; 
+import SKRegistration from './SKRegistration';
 import SKLogin from './SKLogin';
 
-interface AcceptedProps{ 
+interface SKAuth_tsProps {
+    // getToken: (token: string) => ;
     updateToken: (token: string) => void; //takes token, return no value 
-    //props interface
+
 }
 
-interface UserData {
+interface SKAuth_tsState {
     email: string; password: string; newToken: string;
-    //state interface
 }
 
 
-class SKAuth extends Component < AcceptedProps, UserData > {
-    constructor(props: AcceptedProps) {
+class SKAuth extends Component<SKAuth_tsProps, SKAuth_tsState> {
+    constructor(props: SKAuth_tsProps) {
         super(props)
-    
+
         this.state = { //default state
-         newToken: '', 
-         email: '', 
-         password: ''    
+            newToken: '',
+            email: '',
+            password: ''
         }
     }
-    
 
-handleSubmit = (e: any) => {
-    e.preventDefault()
 
-    this.setState({ newToken: 'sessionToken'})
-    this.props.updateToken(this.state.newToken)
-}
+
 
     render() {
         return (
             <div>
-                {/* <SKRegistration />
-                <SKLogin /> */}
-                <button type="submit" onClick={this.handleSubmit}>Button</button> 
+                <SKRegistration
+                    updateToken={this.props.updateToken} />
+
+                <SKLogin
+                    updateToken={this.props.updateToken} />
+
+                {/* <button type="submit" onClick={this.handleSubmit}>SKAuth Button</button> */}
                 {//demo purpose only
                 }
             </div>
