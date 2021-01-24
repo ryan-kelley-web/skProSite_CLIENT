@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 
-interface AcceptedProps {
-    updateToken: (token: string) => void;
+
+interface SKLog_tsProps {
+    // getToken: (token: string) => ;
+    updateToken: (token: string) => void; //takes token, return no value 
+
 }
 
-interface UserData {
-    name: string; email: string; password: string; isAdmin: boolean;
+interface SKLog_tsState {
+    email: string;
+    password: string;
+    newToken: string;
 }
-
-class SKLogin extends Component {
-    constructor(props: AcceptedProps) {
+class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
+    constructor(props: SKLog_tsProps) {
         super(props);
 
         this.state = {
-            name: '',
             email: '',
             password: '',
-            isAdmin: false
+            newToken: ''
         }
     }
 
-    //EVENT HANDLERS
-    handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
+    handleChange = (e: any) => {
+        this.setState({ ...this.state, [e.target.name]: e.target.value })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = (e: any) => {
         e.preventDefault();
 
         console.log(this.state)
@@ -33,32 +35,55 @@ class SKLogin extends Component {
             {
                 method: "POST",
                 body: JSON.stringify({
-                    name: this.state.name,
-                    email: this.state.email,
-                    password: this.state.password,
-                    isAdmin: this.state.isAdmin
+                    user: {
+
+                        email: this.state.email,
+                        password: this.state.password,
+
+                    }
                 }),
                 headers: { 'Content-Type': 'application/json' },
-            }
-        ).then(res => res.json())
-            .then(userPostRes => { console.log(userPostRes) })
+            })
+            .then((response) => response.json())
+            .then((data) => {
+               
+                this.props.updateToken(data.sessionToken);
+                console.log(data.sessionToken);
+
+                this.setState({ newToken: data.sessionToken })
+                // this.props.updateToken(this.state.newToken);
+                // console.log(this.state.newToken);
+            })
             .catch((err) => { console.log("registration error", err) })
     }
 
-    handleIsAdmin = (e) => {
-        this.setState({ isAdmin: e.target.checked })
-    }
 
+    // handleSubmit = (e: any) => {
+    //     e.preventDefault()
+    //     this.setState({ newToken: 'sessionToken' })
+    //     this.props.updateToken(this.state.newToken);
+    //     console.log(this.state.newToken);
+    // }
+
+    // console.log(this.state)
+ 
+
+    //ADMIN-ONLY
+    // handleIsAdmin = (e: any) => {
+    //     this.setState({ isAdmin: e.target.checked })
+    // }
 
     render() {
-        const { name, email, password, isAdmin } = this.state;
+        const { email, password } = this.state;
         // const adminEmail = 'testadmin@email.com';
 
         return (
             <div>
+
+                <h3>Login</h3>
                 <form onSubmit={this.handleSubmit}>
 
-                    <div>
+                    {/* <div>
                         <input
                             type="name"
                             name="name"
@@ -67,7 +92,7 @@ class SKLogin extends Component {
                             onChange={this.handleChange}
                             required
                         /><br />
-                    </div>
+                    </div> */}
 
                     <div>
                         <input
@@ -91,19 +116,19 @@ class SKLogin extends Component {
                         /> <br />
                     </div>
 
-                    <div>
-                        <input
-                            type="checkbox"
-                            name="isAdmin"
-                            placeholder="Are you an admin?"
-                            checked={isAdmin}
-                            // onChange={(e) => this.setState({ isAdmin: e.target.checked })}
-                            onChange={this.handleIsAdmin}
-                        />Check this box if you are an admin of this site. <br />
-                    </div>
+                    {/* <div>
+                    <input
+                        type="checkbox"
+                        name="isAdmin"
+                        placeholder="Are you an admin?"
+                        checked={isAdmin}
+                        // onChange={(e) => this.setState({ isAdmin: e.target.checked })}
+                        onChange={this.handleIsAdmin}
+                    />Check this box if you are an admin of this site. <br />
+                </div> */}
 
                     <div>
-                        <button type="submit">Register Today</button>
+                        <button type="submit">Log In</button>
                     </div >
 
                 </form>

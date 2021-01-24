@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-interface AcceptedProps {
+interface SKReg_tsProps {
     updateToken: (token: string) => void;
 }
 
-interface UserData {
+interface SKReg_tsState {
     name: string; email: string; password: string; isAdmin: boolean;
 }
 
-class SKRegistration extends Component <AcceptedProps, UserData> {
-    constructor(props: AcceptedProps) {
+class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
+    constructor(props: SKReg_tsProps) {
         super(props);
 
         this.state = {
@@ -20,7 +20,6 @@ class SKRegistration extends Component <AcceptedProps, UserData> {
         }
     }
 
-    //EVENT HANDLERS
     handleSubmit = (e: any) => {
         e.preventDefault();
 
@@ -29,15 +28,20 @@ class SKRegistration extends Component <AcceptedProps, UserData> {
             {
                 method: "POST",
                 body: JSON.stringify({
-                    name: this.state.name,
-                    email: this.state.email,
-                    password: this.state.password,
-                    isAdmin: this.state.isAdmin
+                    user: {
+                        name: this.state.name,
+                        email: this.state.email,
+                        password: this.state.password,
+                        isAdmin: this.state.isAdmin
+                    }
                 }),
                 headers: { 'Content-Type': 'application/json' },
             })
             .then((response) => response.json())
-            .then((result) => { this.props.updateToken(result.sessionToken) })
+            .then((data) => {
+                this.props.updateToken(data.sessionToken);
+                console.log(data.sessionToken);
+            })
             .catch((err) => { console.log("registration error", err) })
     }
 
@@ -46,17 +50,26 @@ class SKRegistration extends Component <AcceptedProps, UserData> {
     }
 
     handleChange = (e: any) => {
-        // this.setState({ [e.target.name]: e.target.value })
         this.setState({ ...this.state, [e.target.name]: e.target.value })
 
     }
 
     render() {
         const { name, email, password, isAdmin } = this.state;
-        // const adminEmail = 'testadmin@email.com';
 
         return (
             <div>
+                <h1>Your <i>best</i> self wants to meet you too. Start today.</h1>
+                <h3>Welcome to Indy's Premier Online Fitness & Nutrition Community</h3>
+                <ul>
+                    <p>Registration is <strong>FREE</strong> and gives you access to...</p>
+                    <li>An ever-expanding library of interdisciplinary workouts to keep you focused and having fun </li>
+                    <li>Easy, convenient tools to monitor your results and catalog your experiences</li>
+                    <li>Exclusive "Healthy Hoosier HotSpot" offers on wellness products & services, from the companies keeping Indiana strong (see blog for more)</li>
+                    <li>A community of motivated practitioners willing to share what they've learned along the way</li>
+                </ul>
+
+                <h3>Registration</h3>
                 <form onSubmit={this.handleSubmit}>
 
                     <div>
@@ -104,7 +117,7 @@ class SKRegistration extends Component <AcceptedProps, UserData> {
                     </div>
 
                     <div>
-                        <button type="submit">Register Today</button>
+                        <button type="submit">Sign Up </button>
                     </div >
 
                 </form>
@@ -116,109 +129,4 @@ class SKRegistration extends Component <AcceptedProps, UserData> {
 export default SKRegistration;
 
 
-
-// import React, { Component } from "react";
-
-// class SKRegistration extends Component {
-//     constructor(props) {
-//         super(props);
-
-//         this.state = {
-//             name: "",
-//             email: "",
-//             password: "",
-//             isAdmin: false,
-//         };
-
-//         //class compon event handlers need to be "bound."
-//         this.handleSubmit = this.handleSubmit.bind(this);
-//         this.handleChange = this.handleChange.bind(this);
-//     }
-
-//     handleChange(e) {
-//         this.setState({
-//             [e.target.name]: e.target.value
-//         });
-//     }
-
-//     handleSubmit = (e) => {
-//         e.preventDefault();
-//         // console.log("form submitted");
-//         const {
-//             name,
-//             email,
-//             password,
-//             isAdmin
-//         } = this.state;
-
-//         const userRegURL = 'http://localhost:3000/user/register';
-
-//         handleSubmit = (e) => {
-//             console.log(this.state.name, this.state.email, this.state.password, this.state.isAdmin);
-
-//             e.preventDefault();
-
-//             fetch(userRegURL,
-//                 {
-//                     method: "POST",
-//                     body: JSON.stringify({
-//                         name: this.state.name,
-//                         email: this.state.email,
-//                         password: this.state.password,
-//                         isAdmin: this.state.isAdmin
-//                     }),
-//                     headers: { 'Content-Type': 'application/json' },
-//                 }
-//             ).then(res => res.json())
-//                 .then(userPostRes => {
-//                     this.setState({
-//                         name: "",
-//                         email: "",
-//                         password: "",
-//                         isAdmin: false
-//                     })
-
-//                 }).catch((err) => { console.log("registration error", err) })
-//         }
-//     }
-
-
-//     componentDidMount() {
-//         console.log("Did mount");
-//     }
-//     render() {
-//         return (
-//             <div>
-//                 <form onSubmit={this.handleSubmit}>
-//                     <input
-//                         type="email"
-//                         name="email"
-//                         placeholder="Email"
-//                         value={this.state.email}
-//                         onChange={this.handleChange}
-//                         required
-//                     /><br />
-
-//                     <input
-//                         type="password"
-//                         name="password"
-//                         placeholder="Password"
-//                         value={this.state.password}
-//                         onChange={(e) => this.setState({ password: e.target.value })}
-//                         required
-//                     /> <br />
-
-//                     <button type="submit">Register Today</button>
-//                 </form>
-//             </div>
-//         );
-//     }
-// }
-
-
-
-
-
-
-// export default SKRegistration;
 
