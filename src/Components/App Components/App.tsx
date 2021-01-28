@@ -1,12 +1,16 @@
 import React, { Component } from "react";
+// import { FormspreeProvider } from '@formspree/react';
+
 //COMPONS
 import SKAuth from "../Auth Components/SKAuth";
-import SKProfiles from "../SKProfiles";
-import SKPublicSite from "../SKPublicSite";
-import SKAbout from "../SKAbout";
-import SKBlog from "../SKBlog";
-import SKContact from "../SKContact";
-import SKPrivateSite from "../SKPrivateSite";
+import SKProfiles from "../User-Profile Components/SKProfiles";
+import SKPublicSite from "../Public Site Components/SKPublicSite";
+import SKAbout from "../Public Site Components/SKAbout";
+import SKBlog from "../Public Site Components/SKBlog";
+import SKContact from "../Public Site Components/SKContact";
+import SKPrivateSite from "../Private Site Components/SKPrivateSite";
+import SKDash from '../Private Site Components/SKDash';
+import SKAdminDash from '../Private Site Components/SKAdminDash';
 // import { Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
 //BROWSER ROUTER
@@ -24,7 +28,13 @@ import {
 // }
 
 interface App_tsState {
-  name: string; email: string; password: string; isAdmin: boolean; token: string | null; showSKPriv: boolean;
+  name: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+  token: string | null;
+  showSKPriv: boolean;
+  // bypassProfile: null | string;
 }
 
 
@@ -38,6 +48,7 @@ class App extends React.Component<{}, App_tsState> {
     this.deleteToken = this.deleteToken.bind(this);
     this.getToken = this.getToken.bind(this);
     this.showSKPriv = this.showSKPriv.bind(this);
+    // this.bypassProfile = this.bypassProfile.bind(this);
 
     this.state = {
       name: '',
@@ -45,13 +56,18 @@ class App extends React.Component<{}, App_tsState> {
       password: '',
       isAdmin: false,
       token: null,
-      showSKPriv: false
+      showSKPriv: false,
+      // bypassProfile: null
     };
   }
 
+
   //TOKEN FUNCTIONS
-  updateToken(userToken: string) {
+  updateToken(userToken: string, profile: {} | null) {
     this.setState({ token: userToken });
+    if (profile != null) {
+      this.showSKPriv();
+    }
   }
 
   deleteToken() {
@@ -66,8 +82,15 @@ class App extends React.Component<{}, App_tsState> {
     this.setState({ showSKPriv: true });
   }
 
+  // bypassProfile() {
+  //   this.setState({ bypassProfile: 'success' })
+  // }
+
 
   render() {
+    // if (this.state.bypassProfile) {
+    //   return <Redirect to="/login" />
+    // }
     return (
 
       <div>
@@ -104,8 +127,7 @@ class App extends React.Component<{}, App_tsState> {
 
             <Route exact path="/">
               <SKPublicSite
-                updateToken={this.updateToken}
-              />
+                updateToken={this.updateToken} />
             </Route>
 
             <Route exact path="/about">
@@ -127,8 +149,15 @@ class App extends React.Component<{}, App_tsState> {
                   showSKPriv={this.showSKPriv} />
                 :
                 this.state.token && this.showSKPriv ?
-                  <SKPrivateSite
-                    updateToken={this.updateToken} />
+                  <div>
+                    <SKPrivateSite
+                      updateToken={this.updateToken}
+                      token={this.state.token} />
+                    <SKDash
+                      token={this.state.token} />
+                    <SKAdminDash
+                      token={this.state.token} />
+                  </div>
                   :
                   <SKAuth updateToken={this.updateToken} />}
 

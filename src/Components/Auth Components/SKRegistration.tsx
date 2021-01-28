@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 interface SKReg_tsProps {
-    updateToken: (token: string) => void;
+    updateToken: (token: string, profile: {} | null) => void;
 }
 
 interface SKReg_tsState {
@@ -39,7 +39,7 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
             })
             .then((response) => response.json())
             .then((data) => {
-                this.props.updateToken(data.sessionToken);
+                this.props.updateToken(data.sessionToken, data.user.profile);
                 console.log(data.sessionToken);
             })
             .catch((err) => { console.log("registration error", err) })
@@ -80,7 +80,7 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
                             value={name}
                             onChange={this.handleChange}
                             required
-                        /><br />
+                        /><br /><br/>
                     </div>
 
                     <div>
@@ -91,7 +91,7 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
                             value={email}
                             onChange={this.handleChange}
                             required
-                        /><br />
+                        /><br /><br/>
                     </div>
 
                     <div>
@@ -102,7 +102,7 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
                             value={password}
                             onChange={(e) => this.setState({ password: e.target.value })}
                             required
-                        /> <br />
+                        /> <br /><br/>
                     </div>
 
                     <div>
@@ -113,14 +113,14 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
                             checked={isAdmin}
                             // onChange={(e) => this.setState({ isAdmin: e.target.checked })}
                             onChange={this.handleIsAdmin}
-                        />Check this box if you are an admin of this site. <br />
+                        />Check this box if you are an admin of this site. <br /><br/>
                     </div>
 
                     <div>
                         <button type="submit">Sign Up </button>
                     </div >
 
-                </form>
+                </form><br/>
             </div >
         )
     }

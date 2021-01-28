@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 interface SKLog_tsProps {
     // getToken: (token: string) => ;
-    updateToken: (token: string) => void; //takes token, return no value 
+    updateToken: (token: string, profile: {} | null) => void; //takes token, return no value 
 
 }
 
@@ -11,6 +11,7 @@ interface SKLog_tsState {
     email: string;
     password: string;
     newToken: string;
+    bypassProfile: null | string;
 }
 class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
     constructor(props: SKLog_tsProps) {
@@ -19,7 +20,8 @@ class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
         this.state = {
             email: '',
             password: '',
-            newToken: ''
+            newToken: '', 
+            bypassProfile: null
         }
     }
 
@@ -47,10 +49,12 @@ class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
             .then((response) => response.json())
             .then((data) => {
                
-                this.props.updateToken(data.sessionToken);
+                this.props.updateToken(data.sessionToken, data.user.profile);
                 console.log(data.sessionToken);
 
                 this.setState({ newToken: data.sessionToken })
+                this.setState({bypassProfile: data.sessionToken})
+                //set destination setState to ...
                 // this.props.updateToken(this.state.newToken);
                 // console.log(this.state.newToken);
             })
@@ -74,8 +78,7 @@ class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
     // }
 
     render() {
-        const { email, password } = this.state;
-        // const adminEmail = 'testadmin@email.com';
+        const { email, password, bypassProfile } = this.state;
 
         return (
             <div>
@@ -83,16 +86,6 @@ class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
                 <h3>Login</h3>
                 <form onSubmit={this.handleSubmit}>
 
-                    {/* <div>
-                        <input
-                            type="name"
-                            name="name"
-                            placeholder="Name"
-                            value={name}
-                            onChange={this.handleChange}
-                            required
-                        /><br />
-                    </div> */}
 
                     <div>
                         <input
@@ -102,7 +95,7 @@ class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
                             value={email}
                             onChange={this.handleChange}
                             required
-                        /><br />
+                        /><br /><br/>
                     </div>
 
                     <div>
@@ -113,7 +106,7 @@ class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
                             value={password}
                             onChange={(e) => this.setState({ password: e.target.value })}
                             required
-                        /> <br />
+                        /> <br /><br/>
                     </div>
 
                     {/* <div>
@@ -131,7 +124,7 @@ class SKLogin extends Component<SKLog_tsProps, SKLog_tsState> {
                         <button type="submit">Log In</button>
                     </div >
 
-                </form>
+                </form><br/>
             </div >
         )
     }

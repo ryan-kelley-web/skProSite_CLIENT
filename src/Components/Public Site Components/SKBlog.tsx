@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 
-interface SKPriv_tsProps {
-    updateToken: (token: string) => void;
+interface SKBlog_tsProps {
+    updateToken: (token: string, profile: {} | null) => void;
 }
 
-interface SKPriv_tsState {
+interface SKBlog_tsState {
     name: string; email: string; password: string; isAdmin: boolean;
 }
 
-class SKPrivateSite extends Component <SKPriv_tsProps, SKPriv_tsState> {
-    constructor(props: SKPriv_tsProps) {
+class SKBlog extends Component <SKBlog_tsProps, SKBlog_tsState> {
+    constructor(props: SKBlog_tsProps) {
         super(props)
     
         this.state = {
@@ -24,10 +24,10 @@ class SKPrivateSite extends Component <SKPriv_tsProps, SKPriv_tsState> {
     render() {
         return (
             <div>
-                <h1>***SKPRIV-LEVEL***</h1>
+                <h1>***SKBLOG-LEVEL***</h1>
             </div>
         )
     }
 }
 
-export default SKPrivateSite;
+export default SKBlog;

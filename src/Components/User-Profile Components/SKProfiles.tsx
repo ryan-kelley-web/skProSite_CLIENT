@@ -70,10 +70,11 @@ class SKProfiles extends Component<SKProf_tsProps, SKProf_tsState> {
                     <div>
                         <label>
                             <p>What city & state do you live in?</p>
-                            <input
-                                type="cityState"
+                            <textarea
                                 name="cityState"
-                                placeholder="City, State (initials)"
+                                placeholder="City, State (initials) example: Terra Haute, IN"
+                                rows={1}
+                                cols={50}
                                 value={this.state.cityState}
                                 onChange={this.handleChange}
                             />
@@ -83,10 +84,11 @@ class SKProfiles extends Component<SKProf_tsProps, SKProf_tsState> {
                     <div>
                         <label>
                             <p>Write a one-sentence tagline explaining who you are, what you love to do, and any other details you wish to add about what makes you unique.</p>
-                            <input
-                                type="tagline"
+                            <textarea
                                 name="tagline"
                                 placeholder="One sentence tagline"
+                                rows={1}
+                                cols={100}
                                 value={this.state.tagline}
                                 onChange={this.handleChange}
                                 required
@@ -97,10 +99,11 @@ class SKProfiles extends Component<SKProf_tsProps, SKProf_tsState> {
                     <div>
                         <label>
                             <p>Understanding 'the why' behind our behaviors (good and bad) is absolutely crucial to maintaining focus. Write one sentence describing <i>your</i> true 'why' for getting stronger and, more importantly, healthier.</p>
-                            <input
-                                type="why"
+                            <textarea
                                 name="why"
                                 placeholder="Your 'why'"
+                                rows={1}
+                                cols={100}
                                 value={this.state.why}
                                 onChange={(e) => this.setState({ why: e.target.value })}
                                 required
@@ -111,10 +114,11 @@ class SKProfiles extends Component<SKProf_tsProps, SKProf_tsState> {
                     <div>
                         <label>
                             <p>What is your biggest advantage? That is, what do you have going for you that will help you with your Fitness, Nutrition, Life, etc. goals?</p>
-                            <input
-                                type="advantage"
+                            <textarea
                                 name="advantage"
                                 placeholder="Your advantage"
+                                rows={1}
+                                cols={50}
                                 value={this.state.advantage}
                                 // onChange={(e) => this.setState({ isAdmin: e.target.checked })}
                                 onChange={this.handleChange}
