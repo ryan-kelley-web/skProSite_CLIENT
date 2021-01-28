@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 interface SKAbout_tsProps {
-    updateToken: (token: string) => void;
+    updateToken: (token: string, profile: {} | null) => void;
 }
 
 interface SKAbout_tsState {
@@ -34,11 +34,11 @@ class SKAbout extends Component<SKAbout_tsProps, SKAbout_tsState> {
                 <h1>What We Do</h1>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde veniam minus ipsum laboriosam, perspiciatis doloribus soluta autem eligendi voluptatibus eius similique, aut dolores, consequatur laborum modi? Unde cum itaque incidunt voluptate ad eveniet illum, sequi molestiae accusamus quis? Eum facilis iste voluptates fugiat voluptas perspiciatis ipsa minima quis ipsam, aliquam odio libero iure quasi consectetur sint qui perferendis ad, omnis sit eaque? Iure aperiam dolorum non? Reprehenderit inventore velit, ex natus cupiditate magnam voluptatum aliquid.</p>
                 <ul>
-    <li><p>1:1 Personal Training</p></li>
-    <li><p>Group Training</p></li>
-    <li><p>Workshops & Seminars</p></li>
+                    <li><p>1:1 Personal Training</p></li>
+                    <li><p>Group Training</p></li>
+                    <li><p>Workshops & Seminars</p></li>
 
-</ul>
+                </ul>
 
                 <h3>Check Out What These Members Have to Say</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis fugit tenetur, earum voluptate atque odio.</p>

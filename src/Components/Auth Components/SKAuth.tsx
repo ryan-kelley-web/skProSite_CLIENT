@@ -4,7 +4,7 @@ import SKLogin from './SKLogin';
 
 interface SKAuth_tsProps {
     // getToken: (token: string) => ;
-    updateToken: (token: string) => void; //takes token, return no value 
+    updateToken: (token: string, profile: {} | null) => void; //takes token, return no value 
 
 }
 
