@@ -2,15 +2,21 @@ import React, { Component } from "react";
 // import { FormspreeProvider } from '@formspree/react';
 
 //COMPONS
+////auth compons
 import SKAuth from "../Auth Components/SKAuth";
+////userprofile compons
 import SKProfiles from "../User-Profile Components/SKProfiles";
+////skpub compons
 import SKPublicSite from "../Public Site Components/SKPublicSite";
 import SKAbout from "../Public Site Components/SKAbout";
 import SKBlog from "../Public Site Components/SKBlog";
 import SKContact from "../Public Site Components/SKContact";
+////skpriv compons
 import SKPrivateSite from "../Private Site Components/SKPrivateSite";
 import SKDash from '../Private Site Components/SKDash';
 import SKAdminDash from '../Private Site Components/SKAdminDash';
+////////wkt compons
+import SKcreateWorkout from '../Private Site Components/Workout CRUD/SKcreateWorkout';
 // import { Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
 //BROWSER ROUTER
@@ -124,6 +130,11 @@ class App extends React.Component<{}, App_tsState> {
           </div>
 
           <Switch>
+            <Route exact path="/newworkout">
+              <SKcreateWorkout
+              token={this.state.token}
+              />
+            </Route>
 
             <Route exact path="/">
               <SKPublicSite
@@ -156,12 +167,11 @@ class App extends React.Component<{}, App_tsState> {
                     <SKDash
                       token={this.state.token} />
                     <SKAdminDash
-                      token={this.state.token} />
+                      token={this.state.token}
+                      />
                   </div>
                   :
                   <SKAuth updateToken={this.updateToken} />}
-
-
             </Route>
 
           </Switch>
