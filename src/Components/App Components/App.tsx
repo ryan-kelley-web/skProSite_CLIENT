@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 // import { FormspreeProvider } from '@formspree/react';
 
 //COMPONS
@@ -133,6 +134,7 @@ class App extends React.Component<{}, App_tsState> {
             <Route exact path="/workout/newworkout">
               <SKcreateWorkout
               token={this.state.token}
+            
               />
             </Route>
 

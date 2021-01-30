@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
-} from 'reactstrap';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
+// import {
+//     Dropdown,
+//     DropdownToggle,
+//     DropdownMenu,
+//     DropdownItem
+// } from 'reactstrap';
 
 
 interface SKWktC_tsProps {
@@ -16,7 +18,7 @@ interface SKWktC_tsState {
     workoutTitle: string;
     workoutItself: string;
     workoutGuidance: string;
-    workoutPublishDate: string;
+    workoutPubDate: string;
     workoutAuthor: string;
     dropdownOpen: boolean
     // dropdownValue: string;
@@ -34,7 +36,7 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
             workoutTitle: '',
             workoutItself: '',
             workoutGuidance: '',
-            workoutPublishDate: '',
+            workoutPubDate: '',
             workoutAuthor: '',
             dropdownOpen: false,
             // dropdownValue: ''
@@ -60,9 +62,8 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                     workoutTitle: this.state.workoutTitle,
                     workoutItself: this.state.workoutItself,
                     workoutGuidance: this.state.workoutGuidance,
-                    workoutPubDate: this.state.workoutPublishDate,
-                    workoutAuthor: this.state.workoutAuthor
-
+                    workoutPubDate: this.state.workoutPubDate,
+                    workoutAuthor: this.state.workoutAuthor  
                 }
             }),
             headers: {
@@ -73,12 +74,13 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
             .then((response) => response.json())
             .then((wkt) => {
                 console.log(wkt);
+                console.log(this.props.token)
                 this.setState({
                     workoutIntention: wkt.workoutIntention,
                     workoutTitle: wkt.workoutTitle,
                     workoutItself: wkt.workoutItself,
                     workoutGuidance: wkt.workoutGuidance,
-                    workoutPublishDate: wkt.workoutPublishDate,
+                    workoutPubDate: wkt.workoutPubDate,
                     workoutAuthor: wkt.workoutAuthor
                 });
             })
@@ -102,8 +104,8 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
             <div>
 
                 <form
-                    onSubmit={this.postNewWorkout}
-                >
+                    onSubmit={this.postNewWorkout}>
+
                     <h1>Create New Workout</h1>
 
                     <label>
@@ -115,6 +117,9 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                         id="workoutIntention"
                         value={this.state.workoutIntention}
                         onChange={this.handleChange} >
+
+                        <option disabled>Workout Intention Categories</option>
+
                         <option
                             value="strength" >
                             Strength
@@ -141,6 +146,7 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                     <textarea
                         name="workoutTitle"
                         id="workoutTitle"
+                        onChange={this.handleChange}
                         value={this.state.workoutTitle}
                         cols={100}
                         rows={1}
@@ -153,6 +159,7 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                     <textarea
                         name="workoutItself"
                         id="workoutItself"
+                        onChange={this.handleChange}
                         value={this.state.workoutItself}
                         cols={100}
                         rows={20}>
@@ -164,6 +171,7 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
 
                     <textarea
                         name="workoutGuidance" id="workoutGuidance"
+                        onChange={this.handleChange}
                         value={this.state.workoutGuidance}
                         cols={100}
                         rows={10}>
@@ -173,12 +181,15 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                         Workout Publish Date
                 </label> <br />
 
+
                     <input
-                        type="workoutPublishDate"
-                        name="workoutPublishDate"
+                        type="workoutPubDate"
+                        name="workoutPubDate"
                         placeholder="MM/DD/YYYY"
-                        value={this.state.workoutPublishDate}
+                        onChange={this.handleChange}
+                        value={this.state.workoutPubDate}
                     /> <br />
+
 
                     <label >
                         Workout Author
@@ -187,6 +198,7 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                     <input
                         type="workoutAuthor"
                         name="workoutAuthor"
+                        onChange={this.handleChange}
                         value={this.state.workoutAuthor}
                     /> <br/> <br/>
 
