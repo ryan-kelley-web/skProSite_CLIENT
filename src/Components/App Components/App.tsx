@@ -130,7 +130,7 @@ class App extends React.Component<{}, App_tsState> {
           </div>
 
           <Switch>
-            <Route exact path="/newworkout">
+            <Route exact path="/workout/newworkout">
               <SKcreateWorkout
               token={this.state.token}
               />

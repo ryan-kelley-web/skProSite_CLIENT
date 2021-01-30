@@ -81,7 +81,7 @@ class SKAdminDash extends Component<SKAdm_tsProps, SKAdm_tsState> {
                 <ul>
                     <p>WORKOUT MGMT</p>
                     <Link to='/allworkouts'>Display all workouts</Link><br />
-                    <Link to='/newworkout'>Create new workout</Link><br />
+                    <Link to='/workout/newworkout'>Create new workout</Link><br />
                     <Link to='/editworkout/:workoutId'>Edit workout</Link><br />
                     <Link to='deleteworkout/:workoutId'>Delete workout</Link><br />
                 </ul>
