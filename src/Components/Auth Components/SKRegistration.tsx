@@ -45,9 +45,9 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
             .catch((err) => { console.log("registration error", err) })
     }
 
-    handleIsAdmin = (e: any) => {
-        this.setState({ isAdmin: e.target.checked })
-    }
+    // handleIsAdmin = (e: any) => {
+    //     this.setState({ isAdmin: e.target.checked })
+    // }
 
     handleChange = (e: any) => {
         this.setState({ ...this.state, [e.target.name]: e.target.value })

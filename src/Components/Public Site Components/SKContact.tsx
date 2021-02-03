@@ -46,7 +46,7 @@ class SKContact extends React.Component<SKContact_tsProps, SKContact_tsState> {
         return (
             <div>
                 <h1>***SKCONTACT-LEVEL***</h1>
-                <h1>Follow fSwS on Social Media for More Fitness & Nutrition Fun</h1>
+                <h1>Follow fSwS on Social Media</h1>
                 <ul>
                     <li>
                         <a

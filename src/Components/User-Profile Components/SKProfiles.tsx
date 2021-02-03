@@ -61,7 +61,6 @@ class SKProfiles extends Component<SKProf_tsProps, SKProf_tsState> {
 
         return (
             <div>
-                <h1>***SKPROF-LEVEL***</h1>
                 <h1>Congratulations on taking your first step towards a stronger, healthier you.</h1>
                 <h3>You're nearly finished! Just a few more questions and your profile will be complete.</h3>
 

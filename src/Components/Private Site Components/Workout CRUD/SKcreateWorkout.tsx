@@ -11,6 +11,9 @@ import React, { Component } from 'react';
 
 interface SKWktC_tsProps {
     token: string | null;
+    showSKWktR: (e: boolean)=> void;
+
+
 }
 
 interface SKWktC_tsState {
@@ -20,7 +23,7 @@ interface SKWktC_tsState {
     workoutGuidance: string;
     workoutPubDate: string;
     workoutAuthor: string;
-    dropdownOpen: boolean
+    // dropdownOpen: boolean
     // dropdownValue: string;
 }
 
@@ -28,7 +31,7 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
     constructor(props: SKWktC_tsProps) {
         super(props)
         //binding area
-        this.toggle = this.toggle.bind(this);
+        // this.toggle = this.toggle.bind(this);
         this.postNewWorkout = this.postNewWorkout.bind(this);
 
         this.state = {
@@ -38,16 +41,13 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
             workoutGuidance: '',
             workoutPubDate: '',
             workoutAuthor: '',
-            dropdownOpen: false,
+            // dropdownOpen: false,
             // dropdownValue: ''
         }
     }
-
-
-
-    toggle = () => this.setState({
-        dropdownOpen: !this.state.dropdownOpen
-    })
+    // toggle = () => this.setState({
+    //     dropdownOpen: !this.state.dropdownOpen
+    // })
 
     postNewWorkout = (e: any) => {
         e.preventDefault();
@@ -83,6 +83,9 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                     workoutPubDate: wkt.workoutPubDate,
                     workoutAuthor: wkt.workoutAuthor
                 });
+                const showWktR = false;
+                alert("Success! Your workout has been posted.");
+                this.props.showSKWktR(showWktR);
             })
             .catch((err) => {
                 console.log("display newworkout in skcreateWkt error", err)
@@ -118,7 +121,7 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                         value={this.state.workoutIntention}
                         onChange={this.handleChange} >
 
-                        <option disabled>Workout Intention Categories</option>
+                        <option disabled label="Please select a category"></option>
 
                         <option
                             value="strength" >
@@ -201,6 +204,8 @@ class SKcreateWorkout extends Component<SKWktC_tsProps, SKWktC_tsState>{
                         onChange={this.handleChange}
                         value={this.state.workoutAuthor}
                     /> <br/> <br/>
+
+                    
 
                     <button
                     type="submit"

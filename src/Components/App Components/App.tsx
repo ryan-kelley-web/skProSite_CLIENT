@@ -18,6 +18,8 @@ import SKDash from '../Private Site Components/SKDash';
 import SKAdminDash from '../Private Site Components/SKAdminDash';
 ////////wkt compons
 import SKcreateWorkout from '../Private Site Components/Workout CRUD/SKcreateWorkout';
+import SKreadAllWorkouts from '../Private Site Components/Workout CRUD/SKreadAllWorkouts';
+import SKreadOneWorkout from '../Private Site Components/Workout CRUD/SKreadOneWorkout';
 // import { Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 
 //BROWSER ROUTER
@@ -28,6 +30,8 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
+import { timeStamp } from "console";
+
 
 
 // interface App_tsProps {
@@ -41,6 +45,10 @@ interface App_tsState {
   isAdmin: boolean;
   token: string | null;
   showSKPriv: boolean;
+  showSKWktR: boolean;
+  showSKWktR_ONE: boolean;
+  viewWorkout: any;
+  singleWkt: any;
   // bypassProfile: null | string;
 }
 
@@ -55,6 +63,9 @@ class App extends React.Component<{}, App_tsState> {
     this.deleteToken = this.deleteToken.bind(this);
     this.getToken = this.getToken.bind(this);
     this.showSKPriv = this.showSKPriv.bind(this);
+    this.showSKWktR = this.showSKWktR.bind(this);
+    this.showSKWktR_ONE = this.showSKWktR_ONE.bind(this);
+    // this.viewWorkout=this.viewWorkout.bind(this);
     // this.bypassProfile = this.bypassProfile.bind(this);
 
     this.state = {
@@ -64,12 +75,15 @@ class App extends React.Component<{}, App_tsState> {
       isAdmin: false,
       token: null,
       showSKPriv: false,
+      showSKWktR: false,
+      showSKWktR_ONE: false,
+      viewWorkout: '',
+      singleWkt: ''
       // bypassProfile: null
     };
   }
 
 
-  //TOKEN FUNCTIONS
   updateToken(userToken: string, profile: {} | null) {
     this.setState({ token: userToken });
     if (profile != null) {
@@ -89,6 +103,44 @@ class App extends React.Component<{}, App_tsState> {
     this.setState({ showSKPriv: true });
   }
 
+  showSKWktR(x: boolean) {
+    // if(this.state.showSKWktR===false){
+    this.setState({ showSKWktR: x });
+    // } else {
+    //   this.setState({showSKWktR: false})
+    // }
+  }
+
+  showSKWktR_ONE(y: boolean) {
+    this.setState({ showSKWktR_ONE: y });
+  }
+
+  viewWorkout = (id: string) => {
+    // fetch(`http://localhost:3000/workout/viewworkout/${id}`,
+    fetch('http://localhost:3000/workout/viewworkout/4',
+      {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token || ''
+        },
+      })
+      .then((response) => response.json())
+      .then((singleWkt) => {
+        console.log(singleWkt)
+        this.setState({
+          singleWkt: singleWkt
+        });
+
+      })
+      .catch((err) => {
+        console.log("SKreadOneWorkout error", err)
+      })
+  }
+
+
+
+
   // bypassProfile() {
   //   this.setState({ bypassProfile: 'success' })
   // }
@@ -101,6 +153,7 @@ class App extends React.Component<{}, App_tsState> {
     return (
 
       <div>
+        <h1>{this.state.showSKWktR.toString()}</h1>
         <Router>
           <div>
             <nav>
@@ -131,17 +184,15 @@ class App extends React.Component<{}, App_tsState> {
           </div>
 
           <Switch>
-            <Route exact path="/workout/newworkout">
-              <SKcreateWorkout
-              token={this.state.token}
-            
-              />
-            </Route>
+           
+
 
             <Route exact path="/">
               <SKPublicSite
                 updateToken={this.updateToken} />
             </Route>
+
+            
 
             <Route exact path="/about">
               <SKAbout updateToken={this.updateToken} />
@@ -161,7 +212,7 @@ class App extends React.Component<{}, App_tsState> {
                   token={this.state.token}
                   showSKPriv={this.showSKPriv} />
                 :
-                this.state.token && this.showSKPriv ?
+                this.state.token && this.state.showSKPriv ?
                   <div>
                     <SKPrivateSite
                       updateToken={this.updateToken}
@@ -170,11 +221,79 @@ class App extends React.Component<{}, App_tsState> {
                       token={this.state.token} />
                     <SKAdminDash
                       token={this.state.token}
-                      />
+                      showSKWktR={this.showSKWktR}
+                    />
                   </div>
                   :
                   <SKAuth updateToken={this.updateToken} />}
             </Route>
+
+            {/**************************{WORKOUT CRUD} ************************************** */}
+            <Route exact path="/workout/newworkout">
+              {
+                this.state.token && this.state.showSKWktR ?
+                  <SKcreateWorkout
+                    token={this.state.token}
+                    showSKWktR={this.showSKWktR}
+                  />
+                  :
+                  this.state.token && this.state.showSKWktR === false ?
+                    <SKreadAllWorkouts
+                      token={this.state.token}
+                      showSKWktR_ONE={this.showSKWktR_ONE}
+                      viewWorkout={this.state.viewWorkout}
+                      singleWkt={this.state.singleWkt}
+                    />
+                    :
+                    <SKcreateWorkout
+                      token={this.state.token}
+                      showSKWktR={this.showSKWktR}
+                    />
+              }
+            </Route>
+
+            <Route exact path="/workout/allworkouts">
+              <SKreadAllWorkouts
+                token={this.state.token}
+                showSKWktR_ONE={this.showSKWktR_ONE}
+                viewWorkout={this.viewWorkout}
+                singleWkt={this.state.singleWkt}
+              /> </Route>
+
+              <Route exact path='/workout/viewworkout'>       
+                  <SKreadOneWorkout
+                    token={this.state.token}
+                    viewWorkout={this.viewWorkout}
+                    singleWkt={this.state.singleWkt}
+                  />
+              </Route>
+
+              {/* <Route to='/workout/viewworkout'>
+              <SKreadOneWorkout
+                token={this.state.token}
+                viewWorkout={this.viewWorkout}
+                singleWkt={this.state.singleWkt}
+              /></Route> */}
+
+
+
+              {/* {this.state.token && !this.state.showSKWktR_ONE ?
+                <SKreadAllWorkouts
+                  token={this.state.token}
+                  showSKWktR_ONE={this.showSKWktR_ONE}
+                />
+                :
+                this.state.token && this.state.showSKWktR_ONE ?
+                  <SKreadOneWorkout
+                    token={this.state.token}
+                  />
+                  :
+                  <SKreadAllWorkouts
+                    token={this.state.token}
+                    showSKWktR_ONE={this.showSKWktR_ONE}
+                  />
+              } */}
+
 
           </Switch>
 
