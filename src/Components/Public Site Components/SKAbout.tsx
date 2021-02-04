@@ -24,7 +24,6 @@ class SKAbout extends Component<SKAbout_tsProps, SKAbout_tsState> {
     render() {
         return (
             <div>
-                <h1>***SKABOUT-LEVEL***</h1>
 
                 <h1>What is fSwS?</h1>
                 <p>

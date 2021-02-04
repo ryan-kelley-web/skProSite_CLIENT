@@ -45,9 +45,9 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
             .catch((err) => { console.log("registration error", err) })
     }
 
-    handleIsAdmin = (e: any) => {
-        this.setState({ isAdmin: e.target.checked })
-    }
+    // handleIsAdmin = (e: any) => {
+    //     this.setState({ isAdmin: e.target.checked })
+    // }
 
     handleChange = (e: any) => {
         this.setState({ ...this.state, [e.target.name]: e.target.value })
@@ -105,7 +105,7 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
                         /> <br /><br/>
                     </div>
 
-                    <div>
+                    {/* <div>
                         <input
                             type="checkbox"
                             name="isAdmin"
@@ -114,7 +114,7 @@ class SKRegistration extends Component<SKReg_tsProps, SKReg_tsState> {
                             // onChange={(e) => this.setState({ isAdmin: e.target.checked })}
                             onChange={this.handleIsAdmin}
                         />Check this box if you are an admin of this site. <br /><br/>
-                    </div>
+                    </div> */}
 
                     <div>
                         <button type="submit">Sign Up </button>

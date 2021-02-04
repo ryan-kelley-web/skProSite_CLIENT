@@ -14,6 +14,7 @@ interface SKPriv_tsState {
 class SKPrivateSite extends Component <SKPriv_tsProps, SKPriv_tsState> {
     constructor(props: SKPriv_tsProps) {
         super(props)
+
     
         this.state = {
             name: '', 
@@ -23,11 +24,15 @@ class SKPrivateSite extends Component <SKPriv_tsProps, SKPriv_tsState> {
         }
     }
 
+  
+
+    
+
 
     render() {
         return (
             <div>
-                <h1>***SKPRIV-LEVEL***</h1>
+                
                 
             </div>
         )

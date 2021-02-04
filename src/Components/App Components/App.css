@@ -1,0 +1,28 @@
+.App {
+    background-color: mistyrose;
+}
+
+.dubbleyooh {
+    color: yellowgreen;
+}
+
+.eff {
+    color: magenta;
+}
+
+.logo {
+    color: greenyellow;
+    font-size: 35px;
+}
+
+.Navbar {
+    background-color: black;
+    padding: 10px 5px 5px 5px;
+}
+
+
+.navlinks {
+    color: white;
+    border: 1px solid white;
+    padding: 5px;
+}

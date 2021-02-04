@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface SKAdm_tsProps {
     token: string | null;
+    showSKWktR: (e: boolean)=>void;
 }
 
 interface SKAdm_tsState {
@@ -12,6 +13,7 @@ interface SKAdm_tsState {
     tagline: string;
     why: string;
     advantage: string;
+    showCreateWkt: boolean;
 }
 
 class SKAdminDash extends Component<SKAdm_tsProps, SKAdm_tsState> {
@@ -26,9 +28,11 @@ class SKAdminDash extends Component<SKAdm_tsProps, SKAdm_tsState> {
             cityState: '',
             tagline: '',
             why: '',
-            advantage: ''
+            advantage: '',
+            showCreateWkt: true
         }
     }
+
 
 
     displaySKDash = () => {
@@ -69,8 +73,7 @@ class SKAdminDash extends Component<SKAdm_tsProps, SKAdm_tsState> {
     render() {
         return (
             <div>
-                <h1>***SKADM-LEVEL***</h1>
-                <h3>Admin Dashboard</h3>
+                <h1>ADMIN DASHBOARD</h1>
                 <ul>
                     <p>USER-PROFILE MGMT</p>
                     <Link to='/allusers'>Display all user-profiles</Link><br />
@@ -80,8 +83,14 @@ class SKAdminDash extends Component<SKAdm_tsProps, SKAdm_tsState> {
 
                 <ul>
                     <p>WORKOUT MGMT</p>
-                    <Link to='/allworkouts'>Display all workouts</Link><br />
-                    <Link to='/newworkout'>Create new workout</Link><br />
+                    <Link to='/workout/allworkouts'>Display all workouts</Link><br />
+
+
+                    <Link 
+                    to='/workout/newworkout'
+                    onClick={()=>this.props.showSKWktR(this.state.showCreateWkt)}>Create new workout</Link><br />
+
+
                     <Link to='/editworkout/:workoutId'>Edit workout</Link><br />
                     <Link to='deleteworkout/:workoutId'>Delete workout</Link><br />
                 </ul>

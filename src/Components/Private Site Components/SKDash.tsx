@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+
 
 interface SKDash_tsProps {
     token: string | null;
@@ -26,6 +28,8 @@ class SKDash extends Component<SKDash_tsProps, SKDash_tsState> {
         super(props)
         this.componentDidMount = this.componentDidMount.bind(this);
         this.displaySKDash=this.displaySKDash.bind(this);
+        this.welcomeBack=this.welcomeBack.bind(this);
+
 
         this.state = {
             name: '',
@@ -36,6 +40,8 @@ class SKDash extends Component<SKDash_tsProps, SKDash_tsState> {
             advantage: ''
         }
     }
+
+
 
     displaySKDash = () => {
         fetch('http://localhost:3000/user/singleuser',
@@ -58,10 +64,14 @@ class SKDash extends Component<SKDash_tsProps, SKDash_tsState> {
                     advantage: data.profile.profileAdvantage
 
                 });
+                this.welcomeBack();
             })
             .catch((err) => { console.log("display userprofile in skdash error", err) })
     }
 
+    welcomeBack =()=>{
+        alert('Way to be consistent' + ' ' + `${this.state.name}`+'!')
+}
 
 
 
@@ -73,16 +83,21 @@ class SKDash extends Component<SKDash_tsProps, SKDash_tsState> {
 render() {
     return (
         <div>
-            <h1>***SKDASH-LEVEL***</h1>
-            <h3>Dashboard</h3>
+
+            <h1>DASHBOARD</h1>
         
             <p>{this.state.name}</p>
-            {/* <p>{this.state.email}</p> */}
             <p>{this.state.cityState}</p>
             <p>{this.state.tagline}</p>
             <p>{this.state.why}</p>
-            <p>{this.state.advantage}</p>
+            <p>{this.state.advantage}</p> <br/>
+
+        <h5>Progress Starts Here</h5>
+        <Link to='workout/allworkouts'>Display all workouts</Link><br />
+
+
         </div>
+
     )
 }
 }
