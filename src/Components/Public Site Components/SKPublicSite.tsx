@@ -25,7 +25,6 @@ class SKPublicSite extends Component<SKPub_tsProps, SKPub_tsState> {
     render() {
         return (
             <div>
-                <h1>***SKPUB-LEVEL***</h1>
                 <h1>Finding Strength with Strezo</h1>
                 <h3>Move. Nourish. Flourish.</h3>
                 <h3>Build Competence and Confidence with Evidence-based Fitness & Nutrition Coaching</h3>

@@ -105,10 +105,8 @@ class SKreadAllWorkouts extends Component<SKWktR_tsProps, SKWktR_tsState>{
                                             <Link to='/workout/viewworkout'
                                                 // onChange={() => this.props.viewWorkout}
                                                 onClick={()=>this.props.viewWorkout(current.id)}>
-                                                <SKreadOneWorkout
-                                                    token={this.props.token}
-                                                    viewWorkout={this.props.viewWorkout}
-                                                    singleWkt={this.props.singleWkt} /></Link>
+                                                    View Workout
+                                                    </Link>
 
                                         </CardBody>
                                     </Card><br />

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import './App.css';
 
 // import { FormspreeProvider } from '@formspree/react';
 
 //COMPONS
+import SKNavbar from './SKNavbar';
 ////auth compons
 import SKAuth from "../Auth Components/SKAuth";
 ////userprofile compons
@@ -116,8 +118,8 @@ class App extends React.Component<{}, App_tsState> {
   }
 
   viewWorkout = (id: string) => {
-    // fetch(`http://localhost:3000/workout/viewworkout/${id}`,
-    fetch('http://localhost:3000/workout/viewworkout/4',
+    fetch(`http://localhost:3000/workout/viewworkout/${id}`,
+    // fetch('http://localhost:3000/workout/viewworkout/4',
       {
         method: "GET",
         headers: {
@@ -152,15 +154,15 @@ class App extends React.Component<{}, App_tsState> {
     // }
     return (
 
-      <div>
-        <h1>{this.state.showSKWktR.toString()}</h1>
+      <div className='App'>
+        {/* <h1>{this.state.showSKWktR.toString()}</h1> */}
         <Router>
-          <div>
+          {/* <div>
             <nav>
               <ul>
 
                 <li>
-                  <Link to="/">fSwS LOGO</Link>
+                  <Link to="/">fSwS</Link>
                 </li>
 
                 <li>
@@ -181,8 +183,9 @@ class App extends React.Component<{}, App_tsState> {
 
               </ul>
             </nav>
-          </div>
+          </div> */}
 
+<div><SKNavbar/></div>
           <Switch>
            
 
